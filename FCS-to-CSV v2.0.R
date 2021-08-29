@@ -5,6 +5,7 @@
     # github.com/sydneycytometry
     # .fcs file reading and writing adapted from https://gist.github.com/yannabraham/c1f9de9b23fb94105ca5
 
+    # Package installation by Christian Rickert (2021-03-10)
 
 ##### USER INPUT #####
     
