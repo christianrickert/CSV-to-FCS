@@ -5,7 +5,8 @@
     # github.com/sydneycytometry
     # .fcs file reading and writing adapted from https://gist.github.com/yannabraham/c1f9de9b23fb94105ca5
 
-    # Package installation by Christian Rickert (2021-03-10)
+    # Package installation updated, Christian Rickert (2021-03-10)
+    # Manual path entry updated, Christian (2021-08-29)
 
 ##### USER INPUT #####
     
@@ -35,17 +36,18 @@
     library('data.table')
     
     # In order for this to work, a) rstudioapi must be installed and b) the location of this .r script must be in your desired working directory
-    dirname(rstudioapi::getActiveDocumentContext()$path)            # Finds the directory where this script is located
-    setwd(dirname(rstudioapi::getActiveDocumentContext()$path))     # Sets the working directory to where the script is located
-    getwd()
-    PrimaryDirectory <- getwd()
-    PrimaryDirectory
+    #dirname(rstudioapi::getActiveDocumentContext()$path)            # Finds the directory where this script is located
+    #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))     # Sets the working directory to where the script is located
+    #getwd()
+    #PrimaryDirectory <- getwd()
+    #PrimaryDirectory
     
     # Use this to manually set the working directory
-    #setwd("/Users/Tom/Desktop/Experiment")                          # Set your working directory here (e.g. "/Users/Tom/Desktop/") -- press tab when selected after the '/' to see options
-    #getwd()                                                         # Check your working directory has changed correctly
-    #PrimaryDirectory <- getwd()                                     # Assign the working directory as 'PrimaryDirectory'
-    #PrimaryDirectory
+    WorkingDirectory <- file.path("D:", "foo bar", "..", "name", fsep=.Platform$file.sep)  # Works across platforms, e.g. "D:\\foo\ bar\\..\\name" on Windows
+    setwd(WorkingDirectory)                                         # Set your working directory here -- press tab when selected after the '/' to see options
+    getwd()                                                         # Check your working directory has changed correctly
+    PrimaryDirectory <- getwd()                                     # Assign the working directory as 'PrimaryDirectory'
+    PrimaryDirectory
     
     ## Use to list the .csv files in the working directory -- important, the only CSV files in the directory should be the one desired for analysis. If more than one are found, only the first file will be used
     FileNames <- list.files(path=PrimaryDirectory, pattern = ".fcs")     # see a list of CSV files
