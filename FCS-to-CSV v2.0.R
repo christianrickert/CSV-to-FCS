@@ -22,7 +22,7 @@ library('rstudioapi')
 currentFolder <- dirname(rstudioapi::getSourceEditorContext()$path)  # script location
 importFolder <- file.path(currentFolder, "import", fsep = .Platform$file.sep)  # relative path
 exportFolder <- file.path(currentFolder, "export", fsep = .Platform$file.sep)
-filePattern  <- ".fcs"
+filePattern  <- "\\.fcs$"  # match file extension (case-insensitive)
 
 # Set up working directories
 if (!file.exists(importFolder)) {dir.create(importFolder)}
@@ -31,7 +31,7 @@ if (!file.exists(exportFolder)) {dir.create(exportFolder)}
 print(paste("Export folder: ", exportFolder))
 
 # Get list of input files
-FileNames <- list.files(path = importFolder, pattern = filePattern)
+FileNames <- list.files(path = importFolder, pattern = filePattern, ignore.case = TRUE)
 
 # Read data from CSV and write FCS data
 for (FileName in FileNames) {
