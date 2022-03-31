@@ -20,8 +20,8 @@ library('rstudioapi')
 
 # Set input and output variables
 currentFolder <- dirname(rstudioapi::getSourceEditorContext()$path)  # script location
-importFolder <- file.path(currentFolder, "import", fsep=.Platform$file.sep)  # relative path
-exportFolder <- file.path(currentFolder, "export", fsep=.Platform$file.sep)
+importFolder <- file.path(currentFolder, "import", fsep = .Platform$file.sep)  # relative path
+exportFolder <- file.path(currentFolder, "export", fsep = .Platform$file.sep)
 filePattern  <- ".csv"
 
 # Set up working directories
@@ -38,12 +38,12 @@ for (File in FileNames) {
   print(File)
 
   setwd(importFolder)
-  FileData <- fread(file=File, check.names = FALSE)
-  metadata <- data.frame(name=dimnames(FileData)[[2]],desc=paste('column',dimnames(FileData)[[2]],'from dataset'))
-  metadata$minRange <- apply(FileData,2,min)
-  metadata$maxRange <- apply(FileData,2,max)
+  FileData <- fread(file = File, check.names = FALSE)
+  metadata <- data.frame(name = dimnames(FileData)[[2]], desc = paste('column', dimnames(FileData)[[2]], 'from dataset'))
+  metadata$minRange <- apply(FileData, 2, min)
+  metadata$maxRange <- apply(FileData, 2, max)
 
   setwd(exportFolder)
-  FileData.ff <- new("flowFrame",exprs=as.matrix(FileData), parameters=AnnotatedDataFrame(metadata)) # in order to create a flow frame, data needs to be read as matrix by exprs
+  FileData.ff <- new("flowFrame", exprs = as.matrix(FileData), parameters = AnnotatedDataFrame(metadata))
   write.FCS(FileData.ff, paste0(File, ".fcs"))
 }

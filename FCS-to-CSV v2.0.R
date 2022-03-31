@@ -20,8 +20,8 @@ library('rstudioapi')
 
 # Set input and output variables
 currentFolder <- dirname(rstudioapi::getSourceEditorContext()$path)  # script location
-importFolder <- file.path(currentFolder, "export", fsep=.Platform$file.sep)  # relative path
-exportFolder <- file.path(currentFolder, "import2", fsep=.Platform$file.sep)
+importFolder <- file.path(currentFolder, "import", fsep = .Platform$file.sep)  # relative path
+exportFolder <- file.path(currentFolder, "export", fsep = .Platform$file.sep)
 filePattern  <- ".fcs"
 
 # Set up working directories
@@ -36,10 +36,9 @@ FileNames <- list.files(path = importFolder, pattern = filePattern)
 # Read data from CSV and write FCS data
 for (FileName in FileNames) {
   print(FileName)
-  
+
   setwd(importFolder)
   FileData <- exprs(read.FCS(FileName, transformation = FALSE))
-  FileData <- FileData[1:nrow(FileData),1:ncol(FileData)]
 
   setwd(exportFolder)
   write.csv(FileData, paste0(FileName, ".csv"))
